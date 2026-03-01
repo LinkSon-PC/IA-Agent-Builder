@@ -5,11 +5,11 @@ import { NodeFactoryService } from '../../../core/services/node-factory.service'
 import { NodeRegistryService } from '../../../core/services/node-registry.service';
 import { FlowLayoutComponent } from '../components/flow-layout/flow-layout.component';
 import { NodeConfigHostComponent } from '../components/node-config-host/node-config-host.component';
-import { NodeDroppedEvent } from '../components/flow-canvas/flow-canvas.component';
 import { Workflow } from '../../../core/models/workflow';
 import { DrawflowAdapterService } from '../services/drawflow-adapter.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WorkflowConnection } from '../../../core/models/workflow-connection';
+import { NodeType } from '../../../core/models/node-type';
 
 @Component({
   selector: 'app-flow-builder-page',
@@ -88,20 +88,24 @@ export class FlowBuilderPageComponent {
     });
   }
 
-  onNodeDropped(evt: NodeDroppedEvent): void {
+  onNodeTypeSelected(type: NodeType): void {
     const wf = this.store.activeWorkflow();
     if (!wf) return;
 
-    const def = this.nodeRegistry.getDefinition(evt.type);
-    const title = def?.visual.title ?? String(evt.type);
+    const def = this.nodeRegistry.getDefinition(type);
+    const title = def?.visual.title ?? String(type);
 
-    const nodeId = this.drawflow.addSimpleNode(title, evt.position.x, evt.position.y);
+    const index = wf.nodes.length;
+    const x = 80 + (index % 4) * 220;
+    const y = 80 + Math.floor(index / 4) * 140;
+
+    const nodeId = this.drawflow.addSimpleNode(title, x, y);
     if (!nodeId) return;
-    const node = this.nodeFactory.create(evt.type, {
+    const node = this.nodeFactory.create(type, {
       id: nodeId,
       name: title,
-      x: evt.position.x,
-      y: evt.position.y
+      x,
+      y
     });
 
     const nodes = [...wf.nodes, node];

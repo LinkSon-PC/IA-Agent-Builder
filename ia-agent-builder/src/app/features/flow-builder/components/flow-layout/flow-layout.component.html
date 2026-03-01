@@ -1,9 +1,9 @@
 <div class="layout">
   <section class="palette">
-    <app-node-palette />
+    <app-node-palette (nodeTypeSelected)="onNodeTypeSelected($event)" />
   </section>
 
   <section class="canvas">
-    <app-flow-canvas (nodeDropped)="onNodeDropped($event)" />
+    <app-flow-canvas />
   </section>
 </div>

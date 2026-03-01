@@ -1,11 +1,6 @@
 <div
   #canvas
   class="canvas"
-  cdkDropList
-  [cdkDropListDisabled]="!dropEnabled()"
-  [cdkDropListSortingDisabled]="true"
-  [cdkDropListEnterPredicate]="alwaysAllowDrop"
-  (cdkDropListDropped)="onDrop($event)"
 >
-  <div class="drawflow" #drawflow></div>
+  <div class="drawflow-host" #drawflow></div>
 </div>

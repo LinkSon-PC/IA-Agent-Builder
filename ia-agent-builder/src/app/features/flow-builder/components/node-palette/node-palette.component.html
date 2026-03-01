@@ -6,10 +6,10 @@
     @for (n of nodeTypes(); track n.type) {
       <div
         class="item"
-        cdkDrag
-        [cdkDragData]="n.type"
-        (cdkDragStarted)="onDragStarted()"
-        (cdkDragEnded)="onDragEnded()"
+        role="button"
+        tabindex="0"
+        (click)="selectType(n.type)"
+        (keydown.enter)="selectType(n.type)"
       >
         <div class="title">{{ n.visual.title }}</div>
         <div class="desc">{{ n.visual.description }}</div>
