@@ -1,0 +1,12 @@
+.canvas {
+  min-height: 480px;
+  border: 1px dashed rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.02);
+  position: relative;
+}
+
+.drawflow {
+  position: absolute;
+  inset: 0;
+}

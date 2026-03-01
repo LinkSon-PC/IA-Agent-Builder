@@ -1,0 +1,11 @@
+.page {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 16px;
+  align-items: start;
+}
+
+.config {
+  position: sticky;
+  top: 16px;
+}

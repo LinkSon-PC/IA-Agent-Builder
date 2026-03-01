@@ -1,0 +1,12 @@
+<div class="page">
+  <app-flow-layout (nodeDropped)="onNodeDropped($event)" />
+
+  <mat-card class="config">
+    <mat-card-header>
+      <mat-card-title>Configuración</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <app-node-config-host />
+    </mat-card-content>
+  </mat-card>
+</div>

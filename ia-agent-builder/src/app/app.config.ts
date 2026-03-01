@@ -1,12 +1,11 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideHttpClient } from '@angular/common/http';
 
 import { routes } from './app.routes';
-import { environment } from '../environments/environment';
 import { WORKFLOW_NODE_PROVIDERS } from './features/workflow/workflow-node.providers';
+import { WORKFLOW_EXECUTION_PROVIDERS } from './features/workflow-execution/workflow-execution.providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,8 +13,8 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
-    ...WORKFLOW_NODE_PROVIDERS
+    provideHttpClient(),
+    ...WORKFLOW_NODE_PROVIDERS,
+    ...WORKFLOW_EXECUTION_PROVIDERS
   ]
 };
