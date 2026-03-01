@@ -12,6 +12,49 @@
   border-color: #1976d2;
 }
 
+.drawflow .drawflow-node.node-state-running {
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.18);
+}
+
+.drawflow .drawflow-node.node-state-success {
+  border-color: #1565c0;
+  box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.18);
+}
+
+.drawflow .drawflow-node.node-state-error {
+  border-color: #c62828;
+  box-shadow: 0 0 0 2px rgba(198, 40, 40, 0.18);
+}
+
+.drawflow .drawflow-node.node-status-disabled {
+  opacity: 0.55;
+  filter: grayscale(0.9);
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+.drawflow .drawflow-node .flow-node-content {
+  position: relative;
+}
+
+.drawflow .drawflow-node .flow-node-badge {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 10px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+  pointer-events: none;
+}
+
+.drawflow .drawflow-node.node-status-disabled .flow-node-badge {
+  display: inline-flex;
+}
+
 .drawflow .drawflow-node.node-state-disabled {
   opacity: 0.55;
   filter: grayscale(0.8);

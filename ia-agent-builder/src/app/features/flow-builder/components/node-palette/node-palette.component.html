@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Nodos</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="list">
+    @for (n of nodeTypes(); track n.type) {
+      <div
+        class="item"
+        role="button"
+        tabindex="0"
+        (click)="selectType(n.type)"
+        (keydown.enter)="selectType(n.type)"
+      >
+        <div class="title">{{ n.visual.title }}</div>
+        <div class="desc">{{ n.visual.description }}</div>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

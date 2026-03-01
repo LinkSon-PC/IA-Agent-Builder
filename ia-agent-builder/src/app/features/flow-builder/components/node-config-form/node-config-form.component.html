@@ -1,0 +1,31 @@
+<form class="form" [formGroup]="form">
+  <mat-button-toggle-group
+    class="status"
+    [value]="statusControl.value"
+    (change)="setStatusChange($event)"
+    aria-label="Estado del nodo"
+  >
+    <mat-button-toggle value="enabled">Habilitado</mat-button-toggle>
+    <mat-button-toggle value="disabled">Deshabilitado</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  @for (f of fields(); track f.key) {
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>{{ f.label }}</mat-label>
+
+      @if (isText(f)) {
+        <input
+          matInput
+          [formControlName]="f.key"
+          [placeholder]="f.placeholder ?? f.label"
+          [title]="f.label"
+          [attr.aria-label]="f.label"
+        />
+      }
+
+      @if (f.description) {
+        <mat-hint>{{ f.description }}</mat-hint>
+      }
+    </mat-form-field>
+  }
+</form>

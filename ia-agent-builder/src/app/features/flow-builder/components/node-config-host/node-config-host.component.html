@@ -1,0 +1,11 @@
+@if (!selectedNode()) {
+  <mat-card class="empty">
+    <mat-card-content>Selecciona un nodo para configurar.</mat-card-content>
+  </mat-card>
+} @else if (!showForm()) {
+  <mat-card class="empty">
+    <mat-card-content>Este nodo no tiene configuración.</mat-card-content>
+  </mat-card>
+} @else {
+  <app-node-config-form />
+}

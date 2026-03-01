@@ -1,0 +1,21 @@
+.list {
+  display: grid;
+  gap: 8px;
+}
+
+.item {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: grab;
+  background: white;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.desc {
+  font-size: 12px;
+  opacity: 0.75;
+}
