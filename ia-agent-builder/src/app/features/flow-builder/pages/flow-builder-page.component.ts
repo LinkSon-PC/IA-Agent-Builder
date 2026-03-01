@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { WorkflowStoreService } from '../../workflow/store/workflow-store.service';
 import { NodeFactoryService } from '../../../core/services/node-factory.service';
@@ -10,11 +11,12 @@ import { DrawflowAdapterService } from '../services/drawflow-adapter.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WorkflowConnection } from '../../../core/models/workflow-connection';
 import { NodeType } from '../../../core/models/node-type';
+import { WorkflowSerializerService } from '../../workflow/services/workflow-serializer.service';
 
 @Component({
   selector: 'app-flow-builder-page',
   standalone: true,
-  imports: [FlowLayoutComponent, MatCardModule, NodeConfigHostComponent],
+  imports: [FlowLayoutComponent, MatCardModule, MatButtonModule, NodeConfigHostComponent],
   templateUrl: './flow-builder-page.component.html',
   styleUrl: './flow-builder-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -24,6 +26,7 @@ export class FlowBuilderPageComponent {
   private readonly nodeFactory = inject(NodeFactoryService);
   private readonly nodeRegistry = inject(NodeRegistryService);
   private readonly drawflow = inject(DrawflowAdapterService);
+  private readonly serializer = inject(WorkflowSerializerService);
 
   constructor() {
     // Ensure there is always an active workflow in demo mode.
@@ -119,5 +122,13 @@ export class FlowBuilderPageComponent {
     });
 
     this.store.selectNode(node.id);
+  }
+
+  exportWorkflow(): void {
+    const wf = this.store.activeWorkflow();
+    if (!wf) return;
+    const payload = this.serializer.serialize(wf);
+    // Temporary: easy verification in DevTools.
+    console.log('Serialized workflow:', payload);
   }
 }
