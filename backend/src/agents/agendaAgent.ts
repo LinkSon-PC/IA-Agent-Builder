@@ -1,7 +1,5 @@
-import datesRaw from '../data/dates.json';
+import { agendaTool } from '../tools/agendaTool.js';
 
-const datesData = datesRaw as any[];
-
-export async function runAgendaAgent(query: string) {
-  return `Tenemos disponibilidad el ${datesData[0].date} a las ${datesData[0].time}`;
+export async function runAgendaAgent(query: string): Promise<string> {
+  return await agendaTool(query);
 }
