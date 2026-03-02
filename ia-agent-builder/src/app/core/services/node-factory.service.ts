@@ -5,6 +5,7 @@ import { NodeType } from '../models/node-type';
 import {
   AnyWorkflowNode,
   CoordinatorWorkflowNode,
+  CustomRouteWorkflowNode,
   DecisionWorkflowNode,
   MessageWorkflowNode,
   QuestionWorkflowNode
@@ -63,10 +64,20 @@ export class NodeFactoryService {
         return node;
       }
       case NodeType.Coordinator: {
-        const config = (strategy?.getDefaultConfig() as { basePrompt: string } | undefined) ?? {
-          basePrompt: ''
-        };
+        const config =
+          (strategy?.getDefaultConfig() as { agentName: string; basePrompt: string } | undefined) ??
+          ({ agentName: '', basePrompt: '' } as const);
         const node: CoordinatorWorkflowNode = { ...baseCommon, type: NodeType.Coordinator, config };
+        return node;
+      }
+      case NodeType.CustomRoute: {
+        const config =
+          (strategy?.getDefaultConfig() as { title: string; route: string } | undefined) ??
+          ({ title: '', route: '' } as const);
+        const node: CustomRouteWorkflowNode = { ...baseCommon, type: NodeType.CustomRoute, config };
+        if (!node.config.title.trim()) {
+          node.config = { ...node.config, title: overrides.name };
+        }
         return node;
       }
     }

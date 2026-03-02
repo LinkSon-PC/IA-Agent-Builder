@@ -20,6 +20,23 @@ export interface SerializedWorkflow {
   nodes: SerializedWorkflowNode[];
 }
 
+export interface SerializedWorkflowTreeNode {
+  id: string;
+  type: NodeType;
+  name: string;
+  status: 'enabled' | 'disabled';
+  config: unknown;
+  children: SerializedWorkflowTreeNode[];
+  ref?: true;
+}
+
+export interface SerializedWorkflowTree {
+  id: string;
+  name: string;
+  startNodeId: string;
+  root: SerializedWorkflowTreeNode | null;
+}
+
 @Injectable({ providedIn: 'root' })
 export class WorkflowSerializerService {
   /**
@@ -72,6 +89,54 @@ export class WorkflowSerializerService {
     }
 
     return map;
+  }
+
+  serializeTree(workflow: Workflow): SerializedWorkflowTree {
+    const nodesById = new Map<string, AnyWorkflowNode>(workflow.nodes.map((n) => [n.id, n]));
+    const outgoingIndex = this.buildOutgoingIndex(workflow.connections);
+    const visited = new Set<string>();
+
+    const build = (nodeId: string): SerializedWorkflowTreeNode | null => {
+      const node = nodesById.get(nodeId);
+      if (!node) return null;
+
+      if (visited.has(nodeId)) {
+        return {
+          id: node.id,
+          type: node.type,
+          name: node.name,
+          status: node.status,
+          config: node.config,
+          children: [],
+          ref: true
+        };
+      }
+
+      visited.add(nodeId);
+
+      const outgoing = outgoingIndex.get(nodeId) ?? [];
+      const children = outgoing
+        .map((c) => build(c.toNodeId))
+        .filter((c): c is SerializedWorkflowTreeNode => !!c);
+
+      return {
+        id: node.id,
+        type: node.type,
+        name: node.name,
+        status: node.status,
+        config: node.config,
+        children
+      };
+    };
+
+    const root = workflow.startNodeId ? build(workflow.startNodeId) : null;
+
+    return {
+      id: workflow.id,
+      name: workflow.name,
+      startNodeId: workflow.startNodeId,
+      root
+    };
   }
 
   private buildOutgoingIndex(connections: WorkflowConnection[]): ReadonlyMap<string, WorkflowConnection[]> {

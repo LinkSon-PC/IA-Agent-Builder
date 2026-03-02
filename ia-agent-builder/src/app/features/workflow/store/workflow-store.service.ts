@@ -85,7 +85,15 @@ export class WorkflowStoreService {
     const wf = this.activeWorkflow();
     if (!wf) return;
 
-    const nodes = wf.nodes.map((n) => (n.id === nodeId ? { ...n, config: config as never } : n));
+    const nodes = wf.nodes.map((n) => {
+      if (n.id !== nodeId) return n;
+      const updated = { ...n, config: config as never };
+      const title = (config as { title?: unknown } | null | undefined)?.title;
+      if (typeof title === 'string') {
+        return { ...updated, name: title };
+      }
+      return updated;
+    });
     this._activeWorkflow.set({
       ...wf,
       nodes,

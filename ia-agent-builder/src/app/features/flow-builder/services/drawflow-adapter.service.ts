@@ -160,4 +160,16 @@ export class DrawflowAdapterService {
       });
     });
   }
+
+  setNodeTitle(nodeId: string, title: string): void {
+    const container = this.container;
+    if (!container) return;
+
+    const el = container.querySelector<HTMLElement>(`#node-${nodeId}`);
+    if (!el) return;
+
+    const titleEl = el.querySelector<HTMLElement>('.flow-node-title');
+    if (!titleEl) return;
+    titleEl.textContent = title;
+  }
 }

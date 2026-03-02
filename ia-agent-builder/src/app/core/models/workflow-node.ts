@@ -63,13 +63,22 @@ export interface DecisionNodeConfig {
 export type DecisionWorkflowNode = WorkflowNodeBase<NodeType.Decision, DecisionNodeConfig>;
 
 export interface CoordinatorNodeConfig {
+  agentName: string;
   basePrompt: string;
 }
 
 export type CoordinatorWorkflowNode = WorkflowNodeBase<NodeType.Coordinator, CoordinatorNodeConfig>;
 
+export interface CustomRouteNodeConfig {
+  title: string;
+  route: string;
+}
+
+export type CustomRouteWorkflowNode = WorkflowNodeBase<NodeType.CustomRoute, CustomRouteNodeConfig>;
+
 export type AnyWorkflowNode =
   | MessageWorkflowNode
   | QuestionWorkflowNode
   | DecisionWorkflowNode
-  | CoordinatorWorkflowNode;
+  | CoordinatorWorkflowNode
+  | CustomRouteWorkflowNode;

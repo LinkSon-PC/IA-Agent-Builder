@@ -87,6 +87,7 @@ export class FlowBuilderPageComponent {
       for (const n of nodes) {
         this.drawflow.setNodeCssStatus(n.id, n.status);
         this.drawflow.setNodeCssState(n.id, n.state);
+        this.drawflow.setNodeTitle(n.id, n.name);
       }
     });
   }
@@ -112,7 +113,7 @@ export class FlowBuilderPageComponent {
     });
 
     const nodes = [...wf.nodes, node];
-    const startNodeId = wf.startNodeId || node.id;
+    const startNodeId = type === NodeType.Coordinator ? node.id : wf.startNodeId || node.id;
 
     this.store.setActiveWorkflow({
       ...wf,
@@ -127,7 +128,7 @@ export class FlowBuilderPageComponent {
   exportWorkflow(): void {
     const wf = this.store.activeWorkflow();
     if (!wf) return;
-    const payload = this.serializer.serialize(wf);
+    const payload = this.serializer.serializeTree(wf);
     // Temporary: easy verification in DevTools.
     console.log('Serialized workflow:', payload);
   }

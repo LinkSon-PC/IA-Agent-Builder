@@ -44,7 +44,11 @@ export class NodeRegistryService {
 
   /** Returns available node types for palette rendering. */
   getAvailableNodeTypes(): readonly NodeTypeDefinition[] {
-    return [...this.definitions.values()].sort((a, b) => a.visual.title.localeCompare(b.visual.title));
+    return [...this.definitions.values()].sort((a, b) => {
+      if (a.type === NodeType.Coordinator && b.type !== NodeType.Coordinator) return -1;
+      if (b.type === NodeType.Coordinator && a.type !== NodeType.Coordinator) return 1;
+      return a.visual.title.localeCompare(b.visual.title);
+    });
   }
 
   /** Returns strategy for a given node type. */

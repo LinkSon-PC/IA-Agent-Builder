@@ -7,5 +7,6 @@ export enum NodeType {
   Message = 'message',
   Question = 'question',
   Decision = 'decision',
-  Coordinator = 'coordinator'
+  Coordinator = 'coordinator',
+  CustomRoute = 'custom-route'
 }

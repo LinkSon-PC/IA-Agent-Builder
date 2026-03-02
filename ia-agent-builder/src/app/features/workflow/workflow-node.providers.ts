@@ -4,6 +4,7 @@ import { NodeType } from '../../core/models/node-type';
 import { NodeTypeDefinition } from '../../core/models/node-definition';
 import { NodeRegistryService } from '../../core/services/node-registry.service';
 import { CoordinatorWorkflowNodeStrategy } from './strategies/coordinator-workflow-node.strategy';
+import { CustomRouteWorkflowNodeStrategy } from './strategies/custom-route-workflow-node.strategy';
 import { MessageWorkflowNodeStrategy } from './strategies/message-workflow-node.strategy';
 import { QuestionWorkflowNodeStrategy } from './strategies/question-workflow-node.strategy';
 
@@ -75,6 +76,13 @@ export const WORKFLOW_NODE_PROVIDERS: Provider[] = [
           configSchema: {
             fields: [
               {
+                key: 'agentName',
+                label: 'Nombre del agente',
+                inputType: InputType.Text,
+                required: true,
+                placeholder: 'Agente principal'
+              },
+              {
                 key: 'basePrompt',
                 label: 'Base prompt',
                 inputType: InputType.Text,
@@ -85,6 +93,34 @@ export const WORKFLOW_NODE_PROVIDERS: Provider[] = [
           }
         };
         registry.registerNode(coordinatorDef, new CoordinatorWorkflowNodeStrategy());
+
+        const customRouteDef: NodeTypeDefinition = {
+          type: NodeType.CustomRoute,
+          visual: {
+            title: 'Ruta Personalizado',
+            description: 'Define una ruta personalizada (path).',
+            icon: 'route'
+          },
+          configSchema: {
+            fields: [
+              {
+                key: 'title',
+                label: 'Título',
+                inputType: InputType.Text,
+                required: true,
+                placeholder: 'Ruta Personalizado'
+              },
+              {
+                key: 'route',
+                label: 'Ruta',
+                inputType: InputType.Text,
+                required: true,
+                placeholder: '/mi-ruta'
+              }
+            ]
+          }
+        };
+        registry.registerNode(customRouteDef, new CustomRouteWorkflowNodeStrategy());
       };
     }
   }
