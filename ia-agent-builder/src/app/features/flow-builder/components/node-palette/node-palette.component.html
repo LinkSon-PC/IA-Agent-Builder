@@ -3,6 +3,19 @@
     <mat-card-title>Nodos</mat-card-title>
   </mat-card-header>
   <mat-card-content class="list">
+    @for (p of presets; track p.route) {
+      <div
+        class="item"
+        role="button"
+        tabindex="0"
+        (click)="selectPreset(p)"
+        (keydown.enter)="selectPreset(p)"
+      >
+        <div class="title">{{ p.title }}</div>
+        <div class="desc">{{ p.description }}</div>
+      </div>
+    }
+
     @for (n of nodeTypes(); track n.type) {
       <div
         class="item"

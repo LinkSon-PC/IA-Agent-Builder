@@ -16,6 +16,13 @@ export class NodePaletteComponent {
   private readonly registry = inject(NodeRegistryService);
 
   @Output() readonly nodeTypeSelected = new EventEmitter<NodeType>();
+  @Output() readonly nodePresetSelected = new EventEmitter<NodePalettePreset>();
+
+  readonly presets: readonly NodePalettePreset[] = [
+    { title: 'Agenda', description: 'Ruta final: agendaAgent', route: 'agendaAgent' },
+    { title: 'Catalogo', description: 'Ruta final: catalogAgent', route: 'catalogAgent' },
+    { title: 'FAQ', description: 'Ruta final: faqAgent', route: 'faqAgent' }
+  ];
 
   /** Node types available for dragging into the canvas. */
   readonly nodeTypes = computed<readonly NodeTypeDefinition[]>(() => this.registry.getAvailableNodeTypes());
@@ -23,4 +30,14 @@ export class NodePaletteComponent {
   selectType(type: NodeType): void {
     this.nodeTypeSelected.emit(type);
   }
+
+  selectPreset(preset: NodePalettePreset): void {
+    this.nodePresetSelected.emit(preset);
+  }
+}
+
+export interface NodePalettePreset {
+  title: string;
+  description: string;
+  route: string;
 }

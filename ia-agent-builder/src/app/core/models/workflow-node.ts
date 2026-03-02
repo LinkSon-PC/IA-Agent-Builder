@@ -76,9 +76,19 @@ export interface CustomRouteNodeConfig {
 
 export type CustomRouteWorkflowNode = WorkflowNodeBase<NodeType.CustomRoute, CustomRouteNodeConfig>;
 
+export interface AgentRouteFinalNodeConfig {
+  route: string;
+}
+
+export type AgentRouteFinalWorkflowNode = WorkflowNodeBase<
+  NodeType.AgentRouteFinal,
+  AgentRouteFinalNodeConfig
+>;
+
 export type AnyWorkflowNode =
   | MessageWorkflowNode
   | QuestionWorkflowNode
   | DecisionWorkflowNode
   | CoordinatorWorkflowNode
-  | CustomRouteWorkflowNode;
+  | CustomRouteWorkflowNode
+  | AgentRouteFinalWorkflowNode;

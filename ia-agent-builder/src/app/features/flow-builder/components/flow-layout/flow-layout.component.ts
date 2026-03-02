@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FlowCanvasComponent } from '../flow-canvas/flow-canvas.component';
-import { NodePaletteComponent } from '../node-palette/node-palette.component';
+import { NodePaletteComponent, NodePalettePreset } from '../node-palette/node-palette.component';
 import { NodeType } from '../../../../core/models/node-type';
 
 @Component({
@@ -13,8 +13,13 @@ import { NodeType } from '../../../../core/models/node-type';
 })
 export class FlowLayoutComponent {
   @Output() readonly nodeTypeSelected = new EventEmitter<NodeType>();
+  @Output() readonly nodePresetSelected = new EventEmitter<NodePalettePreset>();
 
   onNodeTypeSelected(type: NodeType): void {
     this.nodeTypeSelected.emit(type);
+  }
+
+  onNodePresetSelected(preset: NodePalettePreset): void {
+    this.nodePresetSelected.emit(preset);
   }
 }

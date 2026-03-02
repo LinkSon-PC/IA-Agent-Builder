@@ -8,5 +8,6 @@ export enum NodeType {
   Question = 'question',
   Decision = 'decision',
   Coordinator = 'coordinator',
-  CustomRoute = 'custom-route'
+  CustomRoute = 'custom-route',
+  AgentRouteFinal = 'agent-route-final'
 }

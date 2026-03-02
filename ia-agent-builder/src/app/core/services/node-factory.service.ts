@@ -3,6 +3,7 @@ import { NodeState } from '../models/node-state';
 import { NodeStatus } from '../models/node-status';
 import { NodeType } from '../models/node-type';
 import {
+  AgentRouteFinalWorkflowNode,
   AnyWorkflowNode,
   CoordinatorWorkflowNode,
   CustomRouteWorkflowNode,
@@ -78,6 +79,18 @@ export class NodeFactoryService {
         if (!node.config.title.trim()) {
           node.config = { ...node.config, title: overrides.name };
         }
+        return node;
+      }
+      case NodeType.AgentRouteFinal: {
+        const config = { route: '' };
+        const node: AgentRouteFinalWorkflowNode = {
+          ...baseCommon,
+          type: NodeType.AgentRouteFinal,
+          hasConfig: false,
+          configSchema: undefined,
+          outputs: [],
+          config
+        };
         return node;
       }
     }

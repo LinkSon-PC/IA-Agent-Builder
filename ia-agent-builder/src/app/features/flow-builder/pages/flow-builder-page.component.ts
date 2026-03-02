@@ -12,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WorkflowConnection } from '../../../core/models/workflow-connection';
 import { NodeType } from '../../../core/models/node-type';
 import { WorkflowSerializerService } from '../../workflow/services/workflow-serializer.service';
+import { NodePalettePreset } from '../components/node-palette/node-palette.component';
 
 @Component({
   selector: 'app-flow-builder-page',
@@ -125,11 +126,76 @@ export class FlowBuilderPageComponent {
     this.store.selectNode(node.id);
   }
 
+  onNodePresetSelected(preset: NodePalettePreset): void {
+    const wf = this.store.activeWorkflow();
+    if (!wf) return;
+
+    const index = wf.nodes.length;
+    const x = 80 + (index % 4) * 220;
+    const y = 80 + Math.floor(index / 4) * 140;
+
+    const nodeId = this.drawflow.addSimpleNode(preset.title, x, y);
+    if (!nodeId) return;
+
+    const node = this.nodeFactory.create(NodeType.AgentRouteFinal, {
+      id: nodeId,
+      name: preset.title,
+      x,
+      y
+    });
+
+    const config = { route: preset.route };
+    const nodes = [...wf.nodes, { ...node, name: preset.title, config: config as never }];
+
+    this.store.setActiveWorkflow({
+      ...wf,
+      nodes,
+      updatedAtIso: new Date().toISOString()
+    });
+  }
+
   exportWorkflow(): void {
     const wf = this.store.activeWorkflow();
     if (!wf) return;
     const payload = this.serializer.serializeTree(wf);
     // Temporary: easy verification in DevTools.
     console.log('Serialized workflow:', payload);
+  }
+
+  createDemoRouteNodes(): void {
+    const wf = this.store.activeWorkflow();
+    if (!wf) return;
+
+    const baseIndex = wf.nodes.length;
+    const x = 80 + (baseIndex % 4) * 220;
+    const y = 80 + Math.floor(baseIndex / 4) * 140;
+
+    const created: Array<{ name: string; route: string; x: number; y: number }> = [
+      { name: 'Agenda', route: 'agendaAgent', x, y },
+      { name: 'Catalogo', route: 'catalogAgent', x, y: y + 160 },
+      { name: 'FAQ', route: 'faqAgent', x, y: y + 320 }
+    ];
+
+    const newNodes = [...wf.nodes];
+    for (const item of created) {
+      const nodeId = this.drawflow.addSimpleNode(item.name, item.x, item.y);
+      if (!nodeId) continue;
+
+      const finalNode = this.nodeFactory.create(NodeType.AgentRouteFinal, {
+        id: nodeId,
+        name: item.name,
+        x: item.x,
+        y: item.y
+      });
+
+      const config = { route: item.route };
+      newNodes.push({ ...finalNode, name: item.name, config: config as never });
+    }
+
+    this.store.setActiveWorkflow({
+      ...wf,
+      nodes: newNodes,
+      updatedAtIso: new Date().toISOString()
+    });
   }
 }

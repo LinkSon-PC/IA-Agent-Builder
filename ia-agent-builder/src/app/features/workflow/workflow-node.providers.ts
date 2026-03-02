@@ -3,6 +3,7 @@ import { InputType } from '../../core/models/input-type';
 import { NodeType } from '../../core/models/node-type';
 import { NodeTypeDefinition } from '../../core/models/node-definition';
 import { NodeRegistryService } from '../../core/services/node-registry.service';
+import { AgentRouteFinalWorkflowNodeStrategy } from './strategies/agent-route-final-workflow-node.strategy';
 import { CoordinatorWorkflowNodeStrategy } from './strategies/coordinator-workflow-node.strategy';
 import { CustomRouteWorkflowNodeStrategy } from './strategies/custom-route-workflow-node.strategy';
 import { MessageWorkflowNodeStrategy } from './strategies/message-workflow-node.strategy';
@@ -121,6 +122,16 @@ export const WORKFLOW_NODE_PROVIDERS: Provider[] = [
           }
         };
         registry.registerNode(customRouteDef, new CustomRouteWorkflowNodeStrategy());
+
+        const agentRouteFinalDef: NodeTypeDefinition = {
+          type: NodeType.AgentRouteFinal,
+          visual: {
+            title: 'Ruta (Final)',
+            description: 'Nodo final que enruta a un agente por su identificador.',
+            icon: 'flag'
+          }
+        };
+        registry.registerNode(agentRouteFinalDef, new AgentRouteFinalWorkflowNodeStrategy());
       };
     }
   }
