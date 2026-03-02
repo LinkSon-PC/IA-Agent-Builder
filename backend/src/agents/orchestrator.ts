@@ -1,26 +1,43 @@
-import { ai } from '../genkit.js';
-import { classifyPrompt } from '../prompts/classifyPrompt.js';
-import { faqTool } from '../tools/faqTool.js';
-import { catalogTool } from '../tools/catalogTool.js';
-import { agendaTool } from '../tools/agendaTool.js';
-export async function runOrchestrator(query: string) {
+import { WorkflowNode } from '../types/workflow.js';
+import { runAgendaAgent } from './agendaAgent.js';
+import { runCatalogAgent } from './catalogAgent.js';
+import { runFaqAgent } from './faqAgent.js';
 
-  const classification = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
-    prompt: `${classifyPrompt}\nUsuario: ${query}`
-  });
+export class Orchestrator {
 
-  const intent = classification.text.trim().toUpperCase();
+  async handleCoordinator(node: WorkflowNode, query: string): Promise<unknown> {
 
-  console.log("Intent detectado:", intent);
+    for (const child of node.children) {
+      if (child.status !== 'enabled') continue;
 
-  if (intent === 'CATALOGO') {
-    return await catalogTool(query);
+      const result = await this.routeToAgent(
+        child.config.route as string,
+        query
+      );
+
+      if (result) {
+        return result;
+      }
+    }
+
+    return null;
   }
 
-  if (intent === 'AGENDA') {
-    return await agendaTool(query);
-  }
+  async routeToAgent(route: string, query: string): Promise<unknown> {
 
-  return await faqTool(query);
+    switch (route) {
+
+      case 'agendaAgent':
+        return await runAgendaAgent(query);
+
+      case 'catalogAgent':
+        return await runCatalogAgent(query);
+
+      case 'faqAgent':
+        return await runFaqAgent(query);
+
+      default:
+        throw new Error(`Unknown agent route: ${route}`);
+    }
+  }
 }

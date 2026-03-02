@@ -1,32 +1,47 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import { mainFlow } from "./flows/mainFlow.js";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { FlowEngine } from './engine/flowEngine.js';
 
 dotenv.config();
 
 const app = express();
+const port = 3000;
+
 app.use(cors());
 app.use(express.json());
 
-app.post("/chat", async (req, res) => {
-  try {
-    const { sessionId, message, flow } = req.body;
+const flowEngine = new FlowEngine();
 
-    const result = await mainFlow({
-      sessionId,
-      message,
-      flow,
+app.post('/api/orchestrate', async (req, res) => {
+  try {
+    const { input, metadata } = req.body;
+
+    if (!input) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Missing workflow input'
+      });
+    }
+
+    const query = metadata?.query ?? '';
+
+    const result = await flowEngine.execute(input, query);
+
+    return res.json({
+      status: 'ok',
+      result
     });
 
-    res.json(result);
-  } catch (error: any) {
-    res.status(500).json({
-      error: error?.message ?? "Internal error",
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      status: 'error',
+      message: 'Execution failed'
     });
   }
 });
 
-app.listen(3000, () => {
-  console.log("🚀 Server running on port 3000");
+app.listen(port, () => {
+  console.log(`🚀 Server running on http://localhost:${port}`);
 });
