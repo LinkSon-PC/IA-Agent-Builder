@@ -1,0 +1,69 @@
+[debug] [2026-03-02T00:36:38.976Z] ----------------------------------------------------------------------
+[debug] [2026-03-02T00:36:38.981Z] Command:       /Users/estuardosolis/.nvm/versions/node/v22.16.0/bin/node /Users/estuardosolis/.nvm/versions/node/v22.16.0/bin/firebase init
+[debug] [2026-03-02T00:36:38.982Z] CLI Version:   15.8.0
+[debug] [2026-03-02T00:36:38.982Z] Platform:      darwin
+[debug] [2026-03-02T00:36:38.982Z] Node Version:  v22.16.0
+[debug] [2026-03-02T00:36:38.983Z] Time:          Sun Mar 01 2026 18:36:38 GMT-0600 (Central Standard Time)
+[debug] [2026-03-02T00:36:38.983Z] ----------------------------------------------------------------------
+[debug] 
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/estuardosolis/Documents/GitHub/IA-Agent-Builder/backend
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2026-03-02T00:36:48.485Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-03-02T00:36:48.486Z] > authorizing via signed-in user (estuardosolis@ufm.edu)
+[debug] [2026-03-02T00:37:09.419Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:09.419Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:09.422Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1/projects:checkProjectId [none]
+[debug] [2026-03-02T00:37:09.423Z] >>> [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"proposedId":"backendiaagent"}
+[debug] [2026-03-02T00:37:10.160Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1/projects:checkProjectId 200
+[debug] [2026-03-02T00:37:10.160Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1/projects:checkProjectId {"projectIdStatus":"PROJECT_ID_AVAILABLE","suggestedProjectId":"backendiaagent"}
+[debug] [2026-03-02T00:37:16.222Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:16.222Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:16.223Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2026-03-02T00:37:16.223Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"backendiaagent","name":"backendiaagent"}
+[debug] [2026-03-02T00:37:16.878Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2026-03-02T00:37:16.878Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.5525833315008709059"}
+[debug] [2026-03-02T00:37:16.880Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:16.880Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:16.881Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 [none]
+[debug] [2026-03-02T00:37:17.087Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 200
+[debug] [2026-03-02T00:37:17.087Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 {"name":"operations/create_project.global.5525833315008709059"}
+[debug] [2026-03-02T00:37:17.590Z] [Project Creation Poller] Retrying task index 0
+[debug] [2026-03-02T00:37:17.591Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:17.591Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:17.591Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 [none]
+[debug] [2026-03-02T00:37:17.852Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 200
+[debug] [2026-03-02T00:37:17.853Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 {"name":"operations/create_project.global.5525833315008709059"}
+[debug] [2026-03-02T00:37:18.854Z] [Project Creation Poller] Retrying task index 0
+[debug] [2026-03-02T00:37:18.854Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:18.855Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:18.855Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 [none]
+[debug] [2026-03-02T00:37:19.221Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 200
+[debug] [2026-03-02T00:37:19.221Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.5525833315008709059 {"name":"operations/create_project.global.5525833315008709059","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"1052316973410","projectId":"backendiaagent","lifecycleState":"ACTIVE","name":"backendiaagent","createTime":"2026-03-02T00:37:18.249937Z","parent":{"type":"organization","id":"1000247844732"}}}
+[debug] [2026-03-02T00:37:19.222Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:19.222Z] Checked if tokens are valid: true, expires at: 1772414870421
+[debug] [2026-03-02T00:37:19.223Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/backendiaagent:addFirebase [none]
+[debug] [2026-03-02T00:37:20.135Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/backendiaagent:addFirebase 403
+[debug] [2026-03-02T00:37:20.135Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/backendiaagent:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-03-02T00:37:20.136Z] Request to https://firebase.googleapis.com/v1beta1/projects/backendiaagent:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-03-02T00:37:20.530Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/backendiaagent:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (/Users/estuardosolis/.nvm/versions/node/v22.16.0/lib/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/Users/estuardosolis/.nvm/versions/node/v22.16.0/lib/node_modules/firebase-tools/lib/apiv2.js:330:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.
